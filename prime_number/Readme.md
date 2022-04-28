@@ -6,8 +6,10 @@
 
 ## Microsoft
 .\vendor\bin\phpunit tests
-
+php .\src\Main.php
 ## Linux 
 ./vendor/bin/phpunit tests
+php src/Main.php
+
 
    
