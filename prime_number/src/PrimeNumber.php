@@ -7,12 +7,13 @@ class PrimeNumber
 
     public function getMultiple($number)
     {
-        $result = array();
-        for ($j = 1; $j <= $number; $j++) {
+        $result = array(1);
+        for ($j = 2; $j <= $number/2; $j++) {
             if ($number % $j == 0) {
                 $result[] = $j;
             }
         }
+        $result[] = $number;
         return $result;
     }
 
