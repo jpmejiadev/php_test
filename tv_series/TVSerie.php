@@ -1,22 +1,16 @@
 <?php
 
-
-$weekDay = date('l');
-$time = date('H:i');
-if(isset($_GET['weekday'])) {
-    $weekDay = $_GET['weekday'];
-    $weekDay = date('l', strtotime($weekDay));
-}
-
-if(isset($_GET['time'])) {
-    $time = $_GET['time'];
-}
-
-class TVSerie {
+class TVSerie
+{
     private $title;
     private $channel;
     private $gender;
     private $tvSerialIntervals;
+
+    public function __construct()
+    {
+        $this->tvSerialIntervals = array();
+    }
 
     /**
      * @return mixed
@@ -81,76 +75,26 @@ class TVSerie {
     {
         $this->tvSerialIntervals = $tvSerialIntervals;
     }
-
-}
-class TVSerieInterval {
-    private $weekday;
-    private $showTime;
-
-    /**
-     * @return mixed
-     */
-    public function getWeekday()
+    public function addTvSerialIntervals($interval)
     {
-        return $this->weekday;
-    }
-
-    /**
-     * @param mixed $weekday
-     */
-    public function setWeekday($weekday)
-    {
-        $this->weekday = $weekday;
+        $this->tvSerialIntervals[] = $interval;
     }
 
     /**
      * @return mixed
      */
-    public function getShowTime()
+    public function toArray()
     {
-        return $this->showTime;
+        $convertArray = function ($intervals) {
+            return $intervals->toArray();
+        };
+        return array(
+            'title' => $this->getTitle(),
+            'channel' => $this->getChannel(),
+            'gender' => $this->getGender(),
+            'tvSerialIntervals' => array_map($convertArray, $this->getTvSerialIntervals())
+        );
     }
 
-    /**
-     * @param mixed $showTime
-     */
-    public function setShowTime($showTime)
-    {
-        $this->showTime = $showTime;
-    }
 
 }
-// regex
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "test";
-// query
-//  select * from tv_series as s, tv_series_intervals as i where s.id=id_tv_series and week_day='monday' and show_time > '15:00' order by show_time limit 1;
-$query = "select * from tv_series as s, tv_series_intervals as i where s.id=id_tv_series and week_day='". strtolower($weekDay)."' and show_time > '". $time."' order by show_time limit 1;";
-// Create connection
-
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $statement = $conn->prepare($query);
-    $statement->execute();
-    // set the resulting array to associative
-    $result = $statement->setFetchMode(PDO::FETCH_ASSOC);
-    $resultObject = ($statement->fetchObject());
-    $interval = new TVSerieInterval();
-    $interval->setWeekday($resultObject->week_day);
-    $interval->setShowTime($resultObject->show_time);
-    $intervals[] = $interval;
-    $serie = new TVSerie();
-    $serie->setTitle($resultObject->title);
-    $serie->setChannel($resultObject->channel);
-    $serie->setGender($resultObject->gender);
-    $serie->setTvSerialIntervals($intervals);
-    var_dump($serie);
-} catch(PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
-}
-$conn = null;
-

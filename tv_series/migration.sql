@@ -27,11 +27,11 @@ insert into tv_series_intervals (id_tv_series, week_day, show_time)
 values (1, 'monday', '14:15'),
        (1, 'tuesday', '14:15'),
        (1, 'wednesday', '14:15'),
-       (2, 'thursday', '10:15'),
+       (2, 'thursday', '23:45'),
        (2, 'friday', '10:15'),
        (2, 'saturday', '10:15'),
        (3, 'sunday', '22:15'),
-       (3, 'monday', '22:15'),
+       (3, 'monday', '23:15'),
        (3, 'tuesday', '22:15'),
        (4, 'wednesday', '7:15'),
        (4, 'thursday', '7:15'),
@@ -39,12 +39,12 @@ values (1, 'monday', '14:15'),
        (5, 'saturday', '18:15'),
        (5, 'sunday', '18:15'),
        (5, 'monday', '18:15'),
-       (6, 'tuesday', '13:15'),
-       (6, 'wednesday', '13:15'),
+       (6, 'tuesday', '23:15'),
+       (6, 'wednesday', '23:15'),
        (6, 'thursday', '13:15'),
-       (7, 'friday', '3:15'),
-       (7, 'saturday', '3:15'),
-       (7, 'sunday', '3:15');
+       (7, 'friday', '23:15'),
+       (7, 'saturday', '23:15'),
+       (7, 'sunday', '23:15');
 
 
 
