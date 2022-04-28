@@ -4,5 +4,10 @@
 - [ ] Beside each number, print the numbers it is a multiple of (inside brackets and comma-separated).
 - [ ] If only multiple of itself then print [PRIME].
 
+## Microsoft
+.\vendor\bin\phpunit tests
+
+## Linux 
+./vendor/bin/phpunit tests
 
    
