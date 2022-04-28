@@ -20,7 +20,7 @@ class PrimeNumberTest extends TestCase{
 
     public function testIsEqualsOutput() {
         $primeNumber = new PrimeNumber();
-        $list = $primeNumber->getListMultiple(2, 100);
+        $list = $primeNumber->getListMultiple(1, 100);
         $outputList = $primeNumber->toListString($list);
         foreach(file(getcwd() . DIRECTORY_SEPARATOR . "output.txt") as $key => $line) {
             $this->assertEquals(

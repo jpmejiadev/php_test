@@ -8,12 +8,14 @@ class PrimeNumber
     public function getMultiple($number)
     {
         $result = array(1);
-        for ($j = 2; $j <= $number/2; $j++) {
+        for ($j = 2; $j <= $number / 2; $j++) {
             if ($number % $j == 0) {
                 $result[] = $j;
             }
         }
-        $result[] = $number;
+        if($number != 1) {
+            $result[] = $number;
+        }
         return $result;
     }
 
@@ -29,7 +31,7 @@ class PrimeNumber
     {
         $result = array();
         foreach($list as $key => $multiples) {
-            if(count($multiples) > 2) {
+            if(count($multiples) != 2) {
                 $result[] = $key. ' ['.implode(",", $multiples) . ']';
             } else {
                 $result[]= $key. " [PRIME]";
