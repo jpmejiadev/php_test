@@ -2,8 +2,21 @@
 
 class PrimeNumber
 {
-    private $start;
-    private $end;
+    public function echoPrimeNumberGenerator($start, $end){
+        $list = $this->getListMultiple($start, $end);
+        $output = $this->toListString($list);
+        $output = implode(PHP_EOL, $output);
+        echo $output;
+    }
+
+    public function getListMultiple($start, $end)
+    {
+        $result = array();
+        for ($i = $start; $i <= $end; $i++) {
+            $result[$i] = $this->getMultiple($i);
+        }
+        return $result;
+    }
 
     public function getMultiple($number)
     {
@@ -19,14 +32,6 @@ class PrimeNumber
         return $result;
     }
 
-    public function getListMultiple($start, $end)
-    {
-        $result = array();
-        for ($i = $start; $i <= $end; $i++) {
-            $result[$i] = $this->getMultiple($i);
-        }
-        return $result;
-    }
     public function toListString($list)
     {
         $result = array();
