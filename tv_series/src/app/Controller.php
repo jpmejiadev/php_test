@@ -2,8 +2,13 @@
 
 class Controller
 {
-    public static function getNextTVSerie($weekDay, $time) {
-        $query = DBManager::$mainQuery;
+    public static function getNextTVSerie() {
+        //validation request
+        $weekDay = getQueryRequest('weekday', date('l'),
+            "/^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)$/");
+        $time = getQueryRequest('time', date('H:i'), "/^[0-9]?[0-9]:[0-9][0-9]$/");
+        //query db.
+        $query = ConfigDatabase::$mainQuery;
         $parameters = array();
         if(!empty($weekDay)) {
             // escape
@@ -13,19 +18,28 @@ class Controller
         }
         $resultObjects = DBManager::getResultDBObject($query, $parameters);
         $results = DBManager::dbObjectToSerie($resultObjects);
+        // view
+        $view = new SeriesView();
+        $view->getView($results);
         return $results;
     }
 
-    public static function getSeriesFilterName($name) {
-        $query = DBManager::$mainQuery;
+    public static function getSeriesFilterName() {
+        // validation request
+        $name = getQueryRequest('name', '', '/^[a-zA-Z0-9]*$/');
+        // query db for filtering by name if is empty return all series
+        $query = ConfigDatabase::$mainQuery;
+
         $parameters = array();
         if(!empty($name)) {
-            // escape
             $query .= ' and title like :name';
             $parameters[':name'] = '%' . $name . '%';
         }
         $resultObjects = DBManager::getResultDBObject($query, $parameters);
         $results = DBManager::dbObjectToSerie($resultObjects);
+        //view
+        $view = new SeriesView();
+        $view->getView($results);
         return $results;
     }
 }

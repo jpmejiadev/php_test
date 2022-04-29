@@ -13,14 +13,25 @@ Populate a MySQL (InnoDB) database with data from at least 3 TV Series using the
    
 ## ROUTING EXAMPLE
 ```
-1.- create database and migrate to file migration.sql
-2.- update configuration db in file config.php
-3.- start server
+1.- create database and migrate to file src/db/migration.sql
+2.- update configuration db in file src/config/database.php.php
+3.- start server local or apache server
 $ php -S localhost:8000
 
 4.- example get next serie
-http://localhost:8000/?page=next&weekday=friday&time=8:01
+http://localhost:8000/api/next?weekday=friday&time=8:01
 
 4.- example get filter for name if you want all no use param name
-http://localhost:8000?page=filter&name=a
+http://localhost:8000/api/filter?name=as
+
+5.- error 404 when uri not found 
+http://localhost:8000/blabla
+
+6.- if you stop database so show error
+{
+    "status": 500,
+    "message": "Internal Server Error",
+    "page": "SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.\r\n"
+}
+
 ```

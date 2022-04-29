@@ -1,11 +1,12 @@
 <?php
 class DBManager
 {
-    public static $mainQuery = 'select * from tv_series as s, tv_series_intervals as i where s.id=id_tv_series';
-
     public static function getConnection()
     {
-        list($servername, $username, $password, $database)  = include('src/config/database.php');
+        $servername = ConfigDatabase::$servername;
+        $username = ConfigDatabase::$username;
+        $password = ConfigDatabase::$password;
+        $database = ConfigDatabase::$database;
         $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $conn;

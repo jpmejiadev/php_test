@@ -2,36 +2,40 @@
 include 'src/app/Controller.php';
 include 'src/app/model/TVSerie.php';
 include 'src/app/model/TVSerieInterval.php';
+include 'src/config/database.php';
 include 'src/db/DBManager.php';
 include 'src/db/model/ResultDB.php';
 include 'src/library/tools.php';
+include 'src/views/View.php';
+include 'src/views/SeriesView.php';
+include 'src/views/JsonView.php';
 
 try {
-
-    // Routing;
-    $page = getQueryRequest('page', 'filter', "/^(filter|next)$/");
+    $uri = getURI('/api/filter');
     $response = array();
-    switch ($page) {
-        case 'next':
-            $weekDay = getQueryRequest('weekday', date('l'),
-                "/^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)$/");
-            $time = getQueryRequest('time', date('H:i'), "/^[0-9]?[0-9]:[0-9][0-9]$/");
-            $response = Controller::getNextTVSerie($weekDay, $time);
+    switch ($uri) {
+        case '/api/next':
+            Controller::getNextTVSerie();
             break;
-        case 'filter':
-            $name = getQueryRequest('name', '', '/^[a-zA-Z0-9]*$/');
-            $response = Controller::getSeriesFilterName($name);
+        case '/api/filter':
+            Controller::getSeriesFilterName();
             break;
-        default:break;
+        default:
+            http_response_code(404);
+            $view = new JsonView();
+            $view->getView(array(
+                'status' => 404,
+                'message' => 'page not fount',
+                'page' => $uri
+            ));;
+            break;
     }
 
-    // Section View
-    $convertArray = function ($serie) {
-        return $serie->toArray();
-    };
-    echo '<pre>';
-    echo json_encode(array_map($convertArray, $response), JSON_PRETTY_PRINT);
-    echo '</pre>';
 } catch (Exception $e) {
-    echo "ERROR: " . $e->getMessage();
-}
+    http_response_code(500);
+    $view = new JsonView();
+    $view->getView(array(
+        'status' => 500,
+        'message' => 'Internal Server Error',
+        'page' => $e->getMessage()
+    ));;}
