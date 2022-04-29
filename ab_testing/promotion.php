@@ -20,6 +20,4 @@ try {
         'message' => $exception->getMessage()
     ), JSON_PRETTY_PRINT);
     echo '</pre>';
-    die();
-
 }
