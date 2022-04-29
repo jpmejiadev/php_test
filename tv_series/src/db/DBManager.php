@@ -5,7 +5,7 @@ class DBManager
 
     public static function getConnection()
     {
-        list($servername, $username, $password, $database)  = include('config.php');
+        list($servername, $username, $password, $database)  = include('src/config/database.php');
         $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $conn;

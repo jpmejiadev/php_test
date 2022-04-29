@@ -1,10 +1,10 @@
 <?php
-include 'Controller.php';
-include 'DBManager.php';
-include 'ResultDB.php';
-include 'TVSerie.php';
-include 'TVSerieInterval.php';
-include 'tools.php';
+include 'src/app/Controller.php';
+include 'src/app/model/TVSerie.php';
+include 'src/app/model/TVSerieInterval.php';
+include 'src/db/DBManager.php';
+include 'src/db/model/ResultDB.php';
+include 'src/library/tools.php';
 
 try {
 
