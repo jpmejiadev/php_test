@@ -4,6 +4,8 @@
 - [ ] Beside each number, print the numbers it is a multiple of (inside brackets and comma-separated).
 - [ ] If only multiple of itself then print [PRIME].
 
+# Please Run and check unit test file
+
 ## Microsoft
 .\vendor\bin\phpunit tests
 php .\src\Main.php

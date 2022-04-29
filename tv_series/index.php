@@ -1,34 +1,30 @@
 <?php
+include 'Controller.php';
 include 'DBManager.php';
+include 'ResultDB.php';
+include 'TVSerie.php';
+include 'TVSerieInterval.php';
+include 'tools.php';
 
-$weekDay = date('l');
-$time = date('H:i');
-if(isset($_GET['weekday'])) {
-    $weekDay = $_GET['weekday'];
-    $weekDay = date('l', strtotime($weekDay));
-}
-
-if(isset($_GET['time'])) {
-    $time = $_GET['time'];
-}
-$name = 'T';
-if(isset($_GET['name'])) {
-    $time = $_GET['name'];
-}
-// regex
-// page next | filter name
-$page = 'next';
-if(isset($_GET['page'])) {
-    $time = $_GET['page'];
-}
 try {
+
     // Routing;
+    $page = getQueryRequest('page', 'filter', "/^(filter|next)$/");
     $response = array();
-    if($page == 'next') {
-        $response = DBManager::getNextTVSerie($weekDay, $time);
-    } else if($page == 'filter') {
-        $response = DBManager::getSeriesFilterName($name);
+    switch ($page) {
+        case 'next':
+            $weekDay = getQueryRequest('weekday', date('l'),
+                "/^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)$/");
+            $time = getQueryRequest('time', date('H:i'), "/^[0-9]?[0-9]:[0-9][0-9]$/");
+            $response = Controller::getNextTVSerie($weekDay, $time);
+            break;
+        case 'filter':
+            $name = getQueryRequest('name', '', '/^[a-zA-Z0-9]*$/');
+            $response = Controller::getSeriesFilterName($name);
+            break;
+        default:break;
     }
+
     // Section View
     $convertArray = function ($serie) {
         return $serie->toArray();
@@ -36,6 +32,6 @@ try {
     echo '<pre>';
     echo json_encode(array_map($convertArray, $response), JSON_PRETTY_PRINT);
     echo '</pre>';
-} catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
+} catch (Exception $e) {
+    echo "ERROR: " . $e->getMessage();
 }

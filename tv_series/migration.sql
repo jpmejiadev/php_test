@@ -4,7 +4,7 @@ create table tv_series (
     title varchar(50) not null,
     channel varchar(50) not null,
     gender varchar(50) not null
-);
+) ENGINE=InnoDB;;
 --  tv_series_intervals -> (id_tv_series, week_day, show_time);
 create table tv_series_intervals (
     id int(11) not null AUTO_INCREMENT primary key,
@@ -12,7 +12,7 @@ create table tv_series_intervals (
     week_day varchar(50) NOT NULL,
     show_time time NOT NULL,
     FOREIGN KEY (id_tv_series) REFERENCES tv_series(id)
-);
+) ENGINE=InnoDB;
 -- insert tv series
 insert into tv_series (id, title, channel, gender)
 values  (1, 'Roar', 'Apple TV+', 'Anthology series, Dark comedy, Drama'),

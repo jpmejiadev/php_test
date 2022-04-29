@@ -1,11 +1,7 @@
 <?php
-include 'TVSerieInterval.php';
-include 'TVSerie.php';
-include 'ResultDB.php';
-
 class DBManager
 {
-    private static $mainQuery = 'select * from tv_series as s, tv_series_intervals as i where s.id=id_tv_series';
+    public static $mainQuery = 'select * from tv_series as s, tv_series_intervals as i where s.id=id_tv_series';
 
     public static function getConnection()
     {
@@ -42,29 +38,5 @@ class DBManager
         }
         return $results;
     }
-    public static function getNextTVSerie($weekDay, $time) {
-        $query = self::$mainQuery;
-        $parameters = array();
-        if(!empty($weekDay)) {
-            $query .= ' and week_day=:week_day';
-            $parameters[':week_day'] = strtolower($weekDay);
-            $query .= ' and show_time=:show_time';
-            $parameters[':show_time'] = $time;
-        }
-        $resultObjects = self::getResultDBObject($query, $parameters);
-        $results = self::dbObjectToSerie($resultObjects);
-        return $results;
-    }
 
-    public static function getSeriesFilterName($name) {
-        $query = self::$mainQuery;
-        $parameters = array();
-        if(!empty($name)) {
-            $query .= ' and title like :name';
-            $parameters[':name'] = '%' . $name . '%';
-        }
-        $resultObjects = self::getResultDBObject($query, $parameters);
-        $results = self::dbObjectToSerie($resultObjects);
-        return $results;
-    }
 }
