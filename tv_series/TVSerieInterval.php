@@ -1,6 +1,8 @@
 <?php
 class TVSerieInterval {
+
     private $weekday;
+
     private $showTime;
 
     /**
