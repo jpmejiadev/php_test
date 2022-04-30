@@ -1,8 +1,8 @@
 {
     "autoload": {
-        "psr-4": {
-            "TestAB\\": "TestAB"
-        }
+        "classmap": [
+            "src/"
+        ]
     },
     "require": {
         "exads/ab-test-data": "^1.0"

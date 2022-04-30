@@ -1,12 +1,10 @@
 <?php
 require 'vendor/autoload.php';
-include 'ABTestingGenerator.php';
-
-$id = 0;
-if(isset($_GET['id'])){
-    $id = intval($_GET['id']);
-}
+include 'src/ABTestingGenerator.php';
+include 'src/ABPromotion.php';
+include 'src/library/tools.php';
 try {
+    $id = getQueryRequest('id', 0, "/^[123]$/");
     $main = new ABTestingGenerator();
     $promotion = $main->getData($id);
     echo '<pre>';
