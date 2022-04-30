@@ -6,13 +6,13 @@
 - [ ] Write the code to efficiently determine the missing character.
 
 # Please Run and check unit test file
-
+```
 ## Microsoft
 .\vendor\bin\phpunit tests
-php .\src\Main.php
+
 ## Linux
 ./vendor/bin/phpunit tests
-php src/Main.php
+```
 
 
    

@@ -21,3 +21,13 @@ The data will be structured as follows:
   ]
 ]
 ```
+# Run project 
+```
+1.- start server local or apache server
+$ php -S localhost:8000
+2.- check url on the chrome 
+http://localhost:8000/
+3.- select one link after that you should see the design using testab 
+
+
+
